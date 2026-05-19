@@ -1,0 +1,53 @@
+<div class="page-container">
+  <div class="header-section">
+    
+  </div>
+
+  <div class="table-responsive"> 
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th>TÊN TASK</th>
+          <th>DEADLINE</th>
+          <th>ĐỘ ƯU TIÊN</th>
+          <th>TRẠNG THÁI</th>
+          <th class="text-center">THAO TÁC</th> 
+        </tr>
+      </thead>  
+      <tbody>
+        @for (task of myTasks; track task.id) {
+          <tr>
+            <td class="task-name">{{ task.ten_task }}</td>
+            <td>{{ task.deadline | date:'dd/MM/yyyy' }}</td>
+           
+            <td>
+              <span class="badge" [ngClass]="getPriorityClass(task.uu_tien)">
+               
+                {{ getPriorityDisplayName(task.uu_tien) }}
+              </span>
+            </td>
+
+        
+            <td>
+              <span class="badge" [ngClass]="getStatusClass(task.trangthai)">
+                
+                {{ getStatusDisplayName(task.trangthai) }}
+              </span>
+            </td>
+            <td class="text-center">
+              <div class="action-group">             
+                <button class="btn-update" (click)="updateProgress(task)">
+                  Cập nhật tiến độ
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="text-center empty-state">Bạn hiện chưa có nhiệm vụ nào.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="schedule-container">
+  <div class="schedule-card">
+    
+    <div class="calendar-header">
+      <button class="btn-icon" title="Tháng trước" (click)="changeMonth(-1)">
+        &lt;
+      </button>
+      <h2>Tháng {{ displayMonth + 1 }} / {{ displayYear }}</h2>
+      <button class="btn-icon" title="Tháng sau" (click)="changeMonth(1)">
+        &gt;
+      </button>
+    </div>
+
+    <div class="registration-legend">
+      <p>Chọn ca Sáng/Chiều để đăng ký. Bạn không thể thay đổi các ngày trong quá khứ.</p>
+    </div>
+
+    <div class="calendar-wrapper">
+      
+      <div class="weekdays">
+        <div class="weekday">T2</div>
+        <div class="weekday">T3</div>
+        <div class="weekday">T4</div>
+        <div class="weekday">T5</div>
+        <div class="weekday">T6</div>
+        <div class="weekday">T7</div>
+        <div class="weekday">CN</div>
+      </div>
+
+      <div class="days-grid">
+        @for (day of calendarDays; track day.date) {
+          <div class="day-cell" [ngClass]="{'past-date': day.isPast, 'other-month': !day.isCurrentMonth}">
+            <div class="date-header">
+              <span class="date-number" [ngClass]="{'today': day.isToday}">
+                {{ day.dateNumber }}
+              </span>
+            </div>
+            
+            <div class="shift-options">
+  <label class="shift-checkbox" [ngClass]="{'disabled': day.isPast || day.isSunday}">
+    <input type="checkbox" 
+           [ngModel]="day.morning" 
+           (ngModelChange)="day.morning = $event; onCheckboxChange(day, 'morning')"
+           [disabled]="day.isPast || day.isSunday">
+    <span class="shift-pill" [ngClass]="{'saved': day.scheduleIds.morning}">Sáng</span>
+  </label>
+  
+  <label class="shift-checkbox" [ngClass]="{'disabled': day.isPast || day.isSunday || day.isSaturday}">
+    <input type="checkbox" 
+           [ngModel]="day.afternoon" 
+           (ngModelChange)="day.afternoon = $event; onCheckboxChange(day, 'afternoon')"
+           [disabled]="day.isPast || day.isSunday || day.isSaturday">
+    <span class="shift-pill" [ngClass]="{'saved': day.scheduleIds.afternoon}">Chiều</span>
+  </label>
+</div>
+          </div>
+        }
+      </div>
+      
+    </div>
+
+    <div class="form-actions">
+      <span class="loading-text" *ngIf="isLoading">Đang xử lý...</span>
+      <!-- <button class="btn-cancel" (click)="fetchMySchedules()" [disabled]="isLoading">Tải lại</button> -->
+      <button class="btn-submit" (click)="saveSchedule()" [disabled]="isLoading">Xác nhận Đăng ký</button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,119 @@
+.page-container {
+  padding: 20px 40px;
+  background-color: #f8fafc; 
+  min-height: 100vh;
+  margin-left: 240px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header-section h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+
+.filter-group {
+  display: flex;
+  align-items: center;
+}
+
+.form-control.filter-select {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  outline: none;
+  font-size: 14px;
+  background-color: #fff;
+  color: #334155;
+}
+
+.table-responsive {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-table th {
+  background-color: #f1f5f9;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  padding: 16px;
+  text-transform: uppercase;
+}
+
+.task-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.task-name {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.feedback-col {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+
+.badge-danger { background-color: #fee2e2; color: #b91c1c; }    
+.badge-warning { background-color: #fef3c7; color: #b45309; }   
+.badge-success { background-color: #dcfce7; color: #15803d; }  
+.badge-primary { background-color: #e0e7ff; color: #4338ca; }   
+.badge-secondary { background-color: #f1f5f9; color: #64748b; } 
+
+
+.action-group {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-update {
+  background-color: #5aabfd;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-update:hover {
+  background-color: #9eb5ff;
+}
+
+
+.text-center { text-align: center !important; }
+.empty-state { color: #94a3b8; padding: 32px; text-align: center; }

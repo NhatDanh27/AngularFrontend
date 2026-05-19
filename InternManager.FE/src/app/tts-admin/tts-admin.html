@@ -1,0 +1,70 @@
+<div class="tts-admin-container">
+  
+  <div class="tts-sidebar">
+    <h3>Danh sách TTS</h3>
+    
+    @if (isLoadingList) {
+      <p>Đang tải danh sách...</p>
+    } @else {
+      <ul class="tts-menu">
+        @for (user of ttsList; track user.id) {
+          <li class="tts-menu-item" 
+              [ngClass]="{'active': selectedUser?.id === user.id}" 
+              (click)="selectTts(user)">
+            <span class="tts-name">{{ user.tendangnhap }}</span>
+          </li>
+        } @empty {
+          <p>Không có thực tập sinh nào.</p>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="tts-detail-content">
+    
+    @if (!selectedUser) {
+      <div class="empty-state">
+        <p>Vui lòng chọn một Thực tập sinh bên danh sách để xem hồ sơ.</p>
+      </div>
+    } 
+    @else if (isLoadingProfile) {
+      <p>Đang tải hồ sơ của {{ selectedUser.tendangnhap }}...</p>
+    } 
+    @else if (errorMessage) {
+      <div class="error-state">
+        <p style="color: red;">{{ errorMessage }}</p>
+      </div>
+    } 
+    @else if (selectedProfile) {
+      <div class="profile-card admin-view-modal">
+        <div class="modal-header">
+          <h3>Hồ sơ chi tiết: {{ selectedUser.tendangnhap }}</h3>
+        </div>
+
+        <div class="profile-body readonly-profile">
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Họ và tên: <span class="info-value">{{ selectedProfile.hoten }}</span></span>
+              
+            <span class="info-label">Ngày sinh: <span class="info-value">{{ selectedProfile.ngaysinh | date:'dd/MM/yyyy' }}</span></span>
+              
+              <span class="info-label">Sđt: <span class="info-value">{{ selectedProfile.sdt }}</span></span>
+              
+              <span class="info-label">Email: <span class="info-value">{{ selectedProfile.email }}</span></span>
+                
+              <span class="info-label">Trường học: <span class="info-value">{{ selectedProfile.truong }}</span></span>
+              
+              <span class="info-label">Chuyên ngành: <span class="info-value">{{ selectedProfile.nganh }}</span></span>
+              
+                <span class="info-label">Vị trí thực tập: <span class="info-value">{{ selectedProfile.vitri }}</span></span>
+              
+                <span class="info-label">Link Facebook: <span class="info-value">{{ selectedProfile.linkfb }}</span></span>
+              
+            </div>
+            </div>
+        </div>
+      </div>
+    }
+    
+  </div>
+</div>

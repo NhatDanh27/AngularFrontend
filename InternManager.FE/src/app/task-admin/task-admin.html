@@ -1,0 +1,98 @@
+<div class="page-container">
+
+
+  @if (showForm) { 
+    <div class="modal-overlay">   
+      <div class="task-card">    
+        <div class="modal-header">
+          <h3>Giao nhiệm vụ mới</h3>
+          <span class="btn-close" (click)="toggleForm()" style="cursor: pointer; font-size: 20px; font-weight: bold;">&times;</span>
+        </div>
+        
+        <div class="form-group">
+         
+          <select [(ngModel)]="newTask.userID" class="form-control mb-2">
+            <option [value]="0" disabled selected>-- Chọn Thực Tập Sinh --</option>
+            @for (user of ttsUsers; track user.id) {
+         
+              <option [value]="user.id">{{ user.hoten || user.tendangnhap }}</option>
+            }
+          </select>
+          
+          <input type="text" [(ngModel)]="newTask.ten_task" placeholder="Tên nhiệm vụ" class="form-control mb-2">
+          
+          <input type="date" [(ngModel)]="newTask.deadline" class="form-control mb-2">
+          
+          <select [(ngModel)]="newTask.uu_tiens" class="form-control mb-2">
+            <option value="Cao">Độ ưu tiên: Cao</option>
+            <option value="TrungBinh">Độ ưu tiên: Trung bình</option>
+            <option value="Thap">Độ ưu tiên: Thấp</option>
+          </select>       
+          
+          <select [(ngModel)]="newTask.trangthai" class="form-control mb-3">
+            
+            <option value="ChuaHoanThanh">Trạng thái:Chưa hoàn thành</option>
+            <option value="DaHoanThanh">Trạng thái:Đã Hoàn thành</option>
+          </select> 
+
+          <button (click)="submitTask()" class="btn-submit">Tạo nhiệm vụ</button>
+        </div>
+
+        @if (message) {
+          <p [ngStyle]="{'color': message.includes('Lỗi') ? 'red' : 'green', 'margin-top': '10px', 'text-align': 'center'}">
+            {{ message }}
+          </p>
+        }
+      </div>
+    </div>
+  }
+
+  <div class="header-section">
+    <h2 style="font-size: 30px; font-weight: 600;">Quản lý Task</h2>
+    <div class="filter-group">
+      <button class="btn-create" (click)="toggleForm()">Giao việc mới</button>
+    </div>
+  </div>
+
+  <div class="table-responsive"> 
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th>NGƯỜI NHẬN (HỌ TÊN)</th>
+          <th>TÊN TASK</th>
+          <th>DEADLINE</th>
+          <th>ĐỘ ƯU TIÊN</th>
+          <th>TRẠNG THÁI</th>
+        </tr>
+      </thead>  
+      <tbody>
+        @for (task of allTasks; track $index) {
+          <tr>
+            <td class="fw-bold">{{ task.hoten }}</td>
+            <td class="task-name">{{ task.ten_task }}</td>
+            <td>{{ task.deadline | date:'dd/MM/yyyy' }}</td>
+          
+            <td>
+              <span class="badge" [ngClass]="getPriorityClass(task.uu_tiens)">
+              
+                {{ getPriorityDisplayName(task.uu_tiens) }}
+              </span>
+            </td>
+
+          
+            <td>
+              <span class="badge" [ngClass]="getStatusClass(task.trangthai)">
+               
+                {{ getStatusDisplayName(task.trangthai) }}
+              </span>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="text-center empty-state">Chưa có nhiệm vụ nào trên hệ thống.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

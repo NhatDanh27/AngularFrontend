@@ -1,0 +1,13 @@
+<div class="header"> 
+    <img class="logo" src="user.png" alt="Logo">
+    <button (click)="toggleForm()"   class="arrow"><img class="logo1" src="arrow.png" alt="Logo"></button>
+    @if(showForm)
+    {
+        <div class="form-group">
+            
+            <button routerLink="/tts" routerLinkActive="active" class="profile">Hồ sơ</button>     
+            <button (click)="Logout()"  class="btn-logout">Thoát</button>
+        </div>   
+    }
+</div>
+

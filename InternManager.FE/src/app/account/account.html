@@ -1,0 +1,65 @@
+<div class="container">
+@if (showForm) { 
+  <div class="modal-overlay" >   
+    <div class="register-card" >    
+      <div class="modal-header">
+        <h3>Thêm tài khoản mới</h3>
+        <img class="btn-close" src="./close.png" alt="Đóng" (click)="showForm = false">
+      </div>
+      
+      <div class="form-group">
+        <input type="text" [(ngModel)]="newUser.tendangnhap" placeholder="Tên đăng nhập" class="form-control">
+        <input type="password" [(ngModel)]="newUser.matkhau" placeholder="Mật khẩu" class="form-control">
+        
+        <select [(ngModel)]="newUser.role" class="form-control">
+          <option value="TTS">TTS</option>
+          <option value="Admin">Admin</option>
+        </select>       
+        <button (click)="registerUser()" class="btn-submit">Tạo</button>
+      </div>
+      @if (message) {
+        <p [ngStyle]="{'color': message.includes('Lỗi') ? 'red' : 'green', 'margin-top': '10px', 'text-align': 'center'}">
+          {{ message }}
+        </p>
+      }
+    </div>
+  </div>
+}
+<div class="info-add">
+      <p style="font-size: 30px; font-weight: 600;">Thông tin tài khoản</p>
+      <button (click)="toggleForm()" class="btn-action btn-add-user">Thêm tài khoản</button>
+</div>
+  <div class="table-responsive"> 
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tên đăng nhập</th>
+        <th>Vai trò (Role)</th>
+        <th>Ngày tạo</th>
+        <th class="text-center">Thao tác</th> 
+      </tr>
+    </thead>  
+    <tbody>
+      @for (user of usersList; track user.id) {
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.tendangnhap }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.ngaytao | date:'dd/MM/yyyy' }}</td>
+          <td>
+              <div class="action-group">             
+                <img src="./edit.png"  alt="Sửa" class="btn-action btn-edit-user">
+                <img src="./bin.png" alt="Xóa" class="btn-action btn-delete-user">
+              </div>
+            </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5" class="text-center">Chưa có dữ liệu hoặc đang tải...</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  </div>
+</div>
