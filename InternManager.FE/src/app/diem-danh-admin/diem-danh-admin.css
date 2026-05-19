@@ -1,48 +1,89 @@
-.admin-schedule-container {
-  padding: 24px 40px;
-  background-color: #f8fafc;
-  min-height: 100vh;
-  margin-left: 240px;
+:root {
+  --primary-color: #3b82f6;
+  --bg-body: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --white: #ffffff;
 }
 
-.header-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  margin-top: 50px;
+/* --- BỐ CỤC CHÍNH --- */
+.admin-schedule-container {
+  padding: 32px 40px;
+  min-height: 100vh;
+  margin-left: 230px; /* Khớp với sidebar */
+  background-color: var(--bg-body);
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: margin-left 0.3s ease, padding 0.3s ease;
 }
+
+/* --- HEADER & TOOLBAR --- */
+.header-section {
+  margin-bottom: 24px;
+  margin-top: 40px;
+} 
 
 .header-section h2 {
   font-size: 26px;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 24px 0; 
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.sort {
+  display: flex;
+  gap: 16px; 
+  align-items: center;
 }
 
 .search-box {
   width: 350px;
 }
 
+/* Form Controls */
 .form-control {
   width: 100%;
   padding: 10px 16px;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   outline: none;
-  transition: 0.2s;
+  background-color: var(--white);
+  font-size: 14px;
+  transition: all 0.2s ease;
 }
 
 .form-control:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
+.select-input {
+  width: 180px; 
+  cursor: pointer;
+  appearance: auto;
+}
+
+/* --- BẢNG DỮ LIỆU --- */
 .table-card {
-  background: white;
+  background: var(--white);
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1);
+  border: 1px solid var(--border-color);
   overflow: hidden;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
 }
 
 .schedule-table {
@@ -52,45 +93,44 @@
 
 .schedule-table th {
   background-color: #f1f5f9;
-  padding: 16px;
+  padding: 16px 20px;
   text-align: left;
   font-size: 13px;
   font-weight: 600;
-  color: #64748b;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .schedule-table td {
-  padding: 16px;
-  border-bottom: 1px solid #f1f5f9;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
   font-size: 14px;
   color: #334155;
+  vertical-align: middle;
 }
 
-.font-bold { font-weight: 600; color: #0f172a; }
-.text-muted { color: #94a3b8; }
-.italic { font-style: italic; font-size: 13px; }
+.schedule-table tr:last-child td { border-bottom: none; }
+.schedule-table tr:hover { background-color: #f8fafc; }
 
+/* Text Utilities */
+.font-bold { font-weight: 600; color: var(--text-main); }
+.font-medium { font-weight: 500; color: #475569; }
+.text-muted { color: #94a3b8; font-style: italic; }
 
-.tag-morning {
-  background-color: #fff7ed;
-  color: #c2410c;
+/* --- BADGES (THẺ TRẠNG THÁI & VỊ TRÍ) --- */
+.badge-vitri {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
 }
 
-
-.tag-afternoon {
-  background-color: #f0f9ff;
-  color: #0369a1;
-}
-
-
-.tag-full {
-  background-color: #f0fdf4;
-  color: #166534;
-  border: 1px solid #bbf7d0;
-}
-
+/* Thẻ Ca làm */
 .shift-tag {
   display: inline-block;
   padding: 4px 12px;
@@ -98,22 +138,50 @@
   font-size: 12px;
   font-weight: 700;
   text-align: center;
-  min-width: 80px;
+  min-width: 70px;
 }
 
+.tag-morning { background-color: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
+.tag-afternoon { background-color: #f0f9ff; color: #0369a1; border: 1px solid #e0f2fe; }
+.tag-full { background-color: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
 
 .status-badge {
   background-color: #dcfce7;
   color: #15803d;
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 20px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  border: 1px solid #bbf7d0;
 }
 
-.empty-msg {
-  padding: 40px !important;
-  color: #94a3b8;
+/* Empty state */
+.empty-state {
+  text-align: center; 
+  padding: 50px !important; 
+  color: var(--text-muted);
+  font-style: italic;
 }
 
-.text-center { text-align: center; }
+/* --- RESPONSIVE MOBILE --- */
+@media screen and (max-width: 900px) {
+  .admin-schedule-container {
+    margin-left: 0;
+    width: 100vw;
+    padding: 20px 16px;
+  }
+  
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch; /* Kéo dài full chiều ngang */
+  }
+
+  .search-box { width: 100%; }
+  
+  .sort {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .select-input { width: 100%; }
+}

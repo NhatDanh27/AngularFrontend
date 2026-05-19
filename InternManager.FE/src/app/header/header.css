@@ -1,69 +1,129 @@
-
-.header{
-    width: 82%;
-    height: 60px;
+/* --- BỐ CỤC HEADER CHÍNH --- */
+.header {
+    /* Trừ đi 230px của Sidebar thay vì dùng 82% cứng ngắc */
+    width: calc(100% - 230px); 
+    height: 64px;
     background-color: #ffffff;
-    color: #000000;
     display: flex;
     align-items: center;
-    justify-content: right;
-    padding: 0 20px;    
+    justify-content: flex-end; /* Đẩy nội dung sang phải */
+    padding: 0 24px;    
     position: fixed;   
+    top: 0;
+    right: 0;
     box-sizing: border-box;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 230px;
+    /* Đổ bóng mềm mại hơn */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: width 0.3s ease;
 }
 
-.btn-logout {
-    width: 100%;
-    color: #000000;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+/* --- VÙNG CLICK NGƯỜI DÙNG --- */
+.user-menu-container {
+    position: relative; /* Để dropdown menu neo vào vị trí này */
 }
-.profile {
-    width: 100%;
-    color: #000000;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+
+.user-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border-radius: 30px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
+}
+
+.user-trigger:hover {
+    background-color: #f1f5f9; /* Đổi màu nền nhẹ khi hover */
+}
+
+.logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%; /* Bo tròn avatar */
+    object-fit: cover;
+    border: 2px solid #e2e8f0;
+}
+
+.logo1 {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease; /* Hiệu ứng xoay mượt mà */
+}
+
+/* Khi menu mở, mũi tên xoay ngược 180 độ */
+.user-trigger.active .logo1 {
+    transform: rotate(180deg);
+}
+
+/* --- DROPDOWN MENU (.form-group) --- */
+.form-group {
+    position: absolute;
+    top: calc(100% + 10px); /* Nằm ngay dưới avatar một khoảng nhỏ */
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+    /* Animation trượt xuống cực mượt */
+    animation: slideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: top right;
+}
+
+/* Keyframes cho hiệu ứng trượt */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- NÚT BẤM TRONG MENU --- */
+.profile, .btn-logout {
+    width: 100%;
+    text-align: left; /* Căn trái chữ cho lịch sự */
+    background: transparent;
+    color: #334155;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .profile:hover {
-    background-color: #92c5fc;
-    color: #ffffff;
+    background-color: #f0f9ff;
+    color: #0284c7; /* Xanh da trời mượt mà */
 }
+
+.divider {
+    height: 1px;
+    background-color: #e2e8f0;
+    margin: 4px 0;
+}
+
+
 .btn-logout:hover {
-    background-color: #92c5fc;
-    color: #ffffff;
-}
-.logo1{
-    width: 15px;
-    height: 15px;
-    margin-top: 5%; 
+    background-color: #fef2f2;
+    color: #dc2626;
 }
 
-.arrow{
-    background: transparent;
-    border: none;
-    margin-right: 10px;
-    cursor: pointer;
+/* --- RESPONSIVE CHO MOBILE --- */
+@media screen and (max-width: 768px) {
+    .header {
+        width: 100%; /* Tràn viền trên điện thoại (khi sidebar bị ẩn) */
+        left: 0;
+    }
 }
-
-.form-group {
-    position: absolute;
-    top: 45px;
-    right: 20px;
-    background-color: #ffffff;
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-}   

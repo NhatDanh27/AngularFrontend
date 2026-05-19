@@ -1,9 +1,9 @@
-<div class="profile-container">
+<div class="page-container">
   
   <div class="profile-card">
     
     <div class="profile-header">
-      <h2>Thông tin thực tập sinh</h2>
+      <h2 class="page-title">Thông tin thực tập sinh</h2>
       <p class="subtitle">Vui lòng điền và cập nhật thông tin hồ sơ thực tập của bạn</p>
     </div>
 
@@ -12,37 +12,37 @@
         
         <div class="input-group">
           <label for="hoten">Họ và tên <span class="required">*</span></label>
-          <input type="text" id="hoten" name="hoten" [(ngModel)]="editableProfile.hoten" placeholder="Nhập họ và tên đầy đủ">
+          <input type="text" id="hoten" name="hoten" [(ngModel)]="editableProfile.hoten" placeholder="Nhập họ và tên đầy đủ" required class="form-control">
         </div>
         
         <div class="input-group">
-          <label for="ngaysinh">Ngày sinh</label>
-          <input type="date" id="ngaysinh" name="ngaysinh" [(ngModel)]="editableProfile.ngaysinh">
+          <label for="ngaysinh">Ngày sinh <span class="required">*</span></label>
+          <input type="date" id="ngaysinh" name="ngaysinh" [(ngModel)]="editableProfile.ngaysinh" required class="form-control">
         </div>
 
         <div class="input-group">
-          <label for="sdt">Số điện thoại</label>
-          <input type="tel" id="sdt" name="sdt" [(ngModel)]="editableProfile.sdt" placeholder="Ví dụ: 0912345678">
+          <label for="sdt">Số điện thoại <span class="required">*</span></label>
+          <input type="tel" id="sdt" name="sdt" [(ngModel)]="editableProfile.sdt" placeholder="Ví dụ: 0912345678" required class="form-control">
         </div>
 
         <div class="input-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" [(ngModel)]="editableProfile.email" placeholder="Ví dụ: email@domain.com">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" name="email" [(ngModel)]="editableProfile.email" placeholder="Ví dụ: email@gmail.com" required class="form-control">
         </div>
 
         <div class="input-group">
-          <label for="truong">Trường học</label>
-          <input type="text" id="truong" name="truong" [(ngModel)]="editableProfile.truong" placeholder="Nhập tên trường">
+          <label for="truong">Trường học <span class="required">*</span></label>
+          <input type="text" id="truong" name="truong" [(ngModel)]="editableProfile.truong" placeholder="Nhập tên trường" required class="form-control">
         </div>
 
         <div class="input-group">
-          <label for="nganh">Chuyên ngành</label>
-          <input type="text" id="nganh" name="nganh" [(ngModel)]="editableProfile.nganh" placeholder="Nhập chuyên ngành">
+          <label for="nganh">Chuyên ngành <span class="required">*</span></label>
+          <input type="text" id="nganh" name="nganh" [(ngModel)]="editableProfile.nganh" placeholder="Nhập chuyên ngành" required class="form-control">
         </div>
 
-        <div class="input-group" style="width: 40%;">
-          <label for="vitri">Vị trí thực tập</label>
-          <select id="vitri" name="vitri" [(ngModel)]="editableProfile.vitri" class="form-control">
+        <div class="input-group">
+          <label for="vitri">Vị trí thực tập <span class="required">*</span></label>
+          <select id="vitri" name="vitri" [(ngModel)]="editableProfile.vitri" class="form-control custom-select" required>
             <option value="" disabled selected>--Chọn vị trí--</option>
             <option value="IT">IT</option>
             <option value="Media">Media</option>
@@ -54,7 +54,7 @@
         
         <div class="input-group full-width">
           <label for="linkfb">Link Facebook (Tùy chọn)</label>
-          <input type="url" id="linkfb" name="linkfb" [(ngModel)]="editableProfile.linkfb" placeholder="https://facebook.com/your-profile">
+          <input type="url" id="linkfb" name="linkfb" [(ngModel)]="editableProfile.linkfb" placeholder="https://facebook.com/your-profile" class="form-control">
         </div>
       </div>
     </form>

@@ -1,60 +1,69 @@
-/* --- BIẾN MÀU SẮC CHUNG --- */
 :root {
-  --primary: #2563eb;
-  --bg-color: #f8fafc;
-  --surface: #ffffff;
-  --text-main: #1e293b;
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --bg-body: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
   --border-color: #e2e8f0;
+  --white: #ffffff;
   --danger: #ef4444;
 }
 
-.profile-container {
+/* --- BỐ CỤC CHÍNH --- */
+.page-container {
+  padding: 32px 40px; 
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin-left: 230px; /* Khớp tuyệt đối với sidebar */
+  box-sizing: border-box;
+  width: calc(100vw - 230px); 
+  background-color: var(--bg-body);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 40px;
-  background-color: var(--bg-color);
-  min-height: 100vh;
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  
+  align-items: flex-start; /* Để form nằm ở trên thay vì bị đẩy xuống giữa màn hình */
+  transition: margin-left 0.3s ease, padding 0.3s ease;
 }
 
+/* --- KHUNG HỒ SƠ --- */
 .profile-card {
-  background: var(--surface);
+  background: var(--white);
   width: 100%;
-  max-width: 650px;
+  max-width: 700px;
   border-radius: 12px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+  border: 1px solid var(--border-color);
   overflow: hidden;
-  margin-top: 20px;
+  margin-top: 24px; /* Đẩy xuống một chút so với mép trên */
 }
 
+/* --- TIÊU ĐỀ --- */
 .profile-header {
-  padding: 24px;
+  padding: 24px 32px;
   border-bottom: 1px solid var(--border-color);
 }
 
-.profile-header h2 {
-  margin: 0 0 4px 0;
-  font-size: 20px;
-  font-weight: 600;
+.page-title {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
 }
 
 .subtitle {
   margin: 0;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
 /* --- FORM GRID --- */
 .profile-body {
-  padding: 24px;
+  padding: 32px;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 24px;
 }
 
 .full-width {
@@ -63,52 +72,80 @@
 
 .input-group label {
   display: block;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   margin-bottom: 8px;
   color: var(--text-main);
 }
 
-.input-group input,
-.input-group select {
+.required { color: var(--danger); }
+
+/* --- INPUT & SELECT (Đồng bộ với các form khác) --- */
+.form-control {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 16px;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
+  outline: none;
+  background-color: #f8fafc;
+  color: #334155;
   transition: all 0.2s;
   box-sizing: border-box;
-  background-color: var(--surface); 
-  color: var(--text-main);
   font-family: inherit;
 }
 
-
-.input-group input:focus,
-.input-group select:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+.form-control:focus {
+  background-color: var(--white);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.required { color: var(--danger); }
+.custom-select {
+  cursor: pointer;
+  appearance: auto; /* Giữ mũi tên dropdown mặc định cho sạch sẽ */
+}
 
-/* --- NÚT BẤM --- */
+/* --- NÚT BẤM (FOOTER) --- */
 .profile-footer {
-  padding: 16px 24px;
+  padding: 20px 32px;
   background: #f8fafc;
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: flex-end;
 }
 
-button { cursor: pointer; border-radius: 6px; font-weight: 500; transition: 0.2s; }
-
 .btn-submit {
-  background: #1d4ed8;
-  color: white;
+  background: var(--primary-color);
+  color: var(--white);
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+  transition: all 0.2s ease;
 }
 
-.btn-submit:hover { background: #8aa8fa; }
+.btn-submit:hover { 
+  background-color: var(--primary-hover); 
+  transform: translateY(-2px);
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media screen and (max-width: 900px) {
+  .page-container {
+    margin-left: 0;
+    width: 100vw;
+    padding: 16px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr; /* Trở về 1 cột trên điện thoại */
+  }
+  
+  .profile-header, .profile-body, .profile-footer {
+    padding: 20px;
+  }
+}

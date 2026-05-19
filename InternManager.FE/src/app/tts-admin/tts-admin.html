@@ -1,70 +1,108 @@
 <div class="tts-admin-container">
   
-  <div class="tts-sidebar">
-    <h3>Danh sách TTS</h3>
+  <div class="unified-frame">
     
-    @if (isLoadingList) {
-      <p>Đang tải danh sách...</p>
-    } @else {
-      <ul class="tts-menu">
-        @for (user of ttsList; track user.id) {
-          <li class="tts-menu-item" 
-              [ngClass]="{'active': selectedUser?.id === user.id}" 
-              (click)="selectTts(user)">
-            <span class="tts-name">{{ user.tendangnhap }}</span>
-          </li>
-        } @empty {
-          <p>Không có thực tập sinh nào.</p>
+    <div class="frame-sidebar">
+      <div class="sidebar-header">
+        <h3>Danh sách TTS</h3>
+      </div>
+      
+      <div class="sidebar-body">
+        @if (isLoadingList) {
+          <div class="state-text">Đang tải...</div>
+        } @else {
+          <ul class="tts-menu">
+            @for (user of ttsList; track user.id) {
+              <li class="tts-menu-item" 
+                  [ngClass]="{'active': selectedUser?.id === user.id}" 
+                  (click)="selectTts(user)">
+                <div class="avatar-placeholder">{{ user.tendangnhap.charAt(0) | uppercase }}</div>
+                <span class="tts-name">{{ user.tendangnhap }}</span>
+              </li>
+            } @empty {
+              <div class="state-text">Chưa có dữ liệu.</div>
+            }
+          </ul>
         }
-      </ul>
-    }
-  </div>
+      </div>
+    </div>
 
-  <div class="tts-detail-content">
-    
-    @if (!selectedUser) {
-      <div class="empty-state">
-        <p>Vui lòng chọn một Thực tập sinh bên danh sách để xem hồ sơ.</p>
-      </div>
-    } 
-    @else if (isLoadingProfile) {
-      <p>Đang tải hồ sơ của {{ selectedUser.tendangnhap }}...</p>
-    } 
-    @else if (errorMessage) {
-      <div class="error-state">
-        <p style="color: red;">{{ errorMessage }}</p>
-      </div>
-    } 
-    @else if (selectedProfile) {
-      <div class="profile-card admin-view-modal">
-        <div class="modal-header">
-          <h3>Hồ sơ chi tiết: {{ selectedUser.tendangnhap }}</h3>
+    <div class="frame-content">
+      @if (!selectedUser) {
+        <div class="center-state">
+          <img src="./user.png" alt="Icon" style="width: 50px; opacity: 0.2; margin-bottom: 12px;">
+          <p>Chọn một thực tập sinh bên trái để xem chi tiết.</p>
         </div>
+      } 
+      @else if (isLoadingProfile) {
+        <div class="center-state">
+          <p>Đang tải hồ sơ...</p>
+        </div>
+      } 
+      @else if (errorMessage) {
+        <div class="center-state error-text">
+          <p>{{ errorMessage }}</p>
+        </div>
+      } 
+      @else if (selectedProfile) {
+        <div class="profile-detail fade-in">
+          
+          <div class="content-header">
+            <h3>Hồ sơ chi tiết</h3>
+            <span class="username-badge">@{{ selectedUser.tendangnhap }}</span>
+          </div>
 
-        <div class="profile-body readonly-profile">
           <div class="info-grid">
             <div class="info-item">
-              <span class="info-label">Họ và tên: <span class="info-value">{{ selectedProfile.hoten }}</span></span>
-              
-            <span class="info-label">Ngày sinh: <span class="info-value">{{ selectedProfile.ngaysinh | date:'dd/MM/yyyy' }}</span></span>
-              
-              <span class="info-label">Sđt: <span class="info-value">{{ selectedProfile.sdt }}</span></span>
-              
-              <span class="info-label">Email: <span class="info-value">{{ selectedProfile.email }}</span></span>
-                
-              <span class="info-label">Trường học: <span class="info-value">{{ selectedProfile.truong }}</span></span>
-              
-              <span class="info-label">Chuyên ngành: <span class="info-value">{{ selectedProfile.nganh }}</span></span>
-              
-                <span class="info-label">Vị trí thực tập: <span class="info-value">{{ selectedProfile.vitri }}</span></span>
-              
-                <span class="info-label">Link Facebook: <span class="info-value">{{ selectedProfile.linkfb }}</span></span>
-              
+              <span class="info-label">Họ và tên</span>
+              <span class="info-value font-bold">{{ selectedProfile.hoten }}</span>
             </div>
+            
+            <div class="info-item">
+              <span class="info-label">Ngày sinh</span>
+              <span class="info-value">{{ selectedProfile.ngaysinh | date:'dd/MM/yyyy' }}</span>
             </div>
+            
+            <div class="info-item">
+              <span class="info-label">Số điện thoại</span>
+              <span class="info-value">{{ selectedProfile.sdt }}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Email</span>
+              <span class="info-value">{{ selectedProfile.email }}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Trường học</span>
+              <span class="info-value">{{ selectedProfile.truong }}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Chuyên ngành</span>
+              <span class="info-value">{{ selectedProfile.nganh }}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Vị trí</span>
+              <span class="badge-vitri">{{ selectedProfile.vitri }}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Link FB</span>
+              <span class="info-value">
+                @if (selectedProfile.linkfb) {
+                  <a [href]="selectedProfile.linkfb" target="_blank" class="text-link">Xem Facebook</a>
+                } @else {
+                  <span class="text-muted">Chưa có</span>
+                }
+              </span>
+            </div>
+          </div>
+
         </div>
-      </div>
-    }
+      }
+    </div>
     
   </div>
 </div>

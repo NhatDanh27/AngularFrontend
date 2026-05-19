@@ -1,51 +1,31 @@
 <div class="admin-schedule-container">
-  
-  <div class="header-section" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+  <div class="header-section">
     <h2>Quản lý lịch thực tập</h2>
-    
-   
-    <div class="toolbar" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-      
-      
+  
+    <div class="toolbar">
       <div class="search-box">
         <input type="text" 
                placeholder="Tìm kiếm theo tên..." 
                [(ngModel)]="searchTerm" 
                (input)="applyFilters()"
-               class="form-control">
-        
+               class="form-control search-input">
       </div>
 
       <div class="sort">
-        <select [(ngModel)]="filterThu" (change)="applyFilters()" class="form-control">
-        <option value="all">Tất cả Thứ</option>
-        @for (d of days; track $index) {
-          <option [value]="d">{{ getThuText(d) }}</option>
-        }
-      </select>
+        <select [(ngModel)]="filterThu" (change)="applyFilters()" class="form-control select-input">
+          <option value="all">Tất cả Thứ</option>
+          @for (d of days; track $index) {
+            <option [value]="d">{{ getThuText(d) }}</option>
+          }
+        </select>
 
-      
-      <select [(ngModel)]="filterMonth" (change)="applyFilters()" class="form-control">
-        <option value="all">Tất cả Tháng</option>
-        @for (m of months; track $index) {
-          <option [value]="m">Tháng {{ m }}</option>
-        }
-      </select>
-
-     
-      <select [(ngModel)]="filterYear" (change)="applyFilters()" class="form-control">
-        <option value="all">Tất cả Năm</option>
-        @for (y of availableYears; track $index) {
-          <option [value]="y">Năm {{ y }}</option>
-        }
-      </select>
+        <select [(ngModel)]="filterViTri" (change)="applyFilters()" class="form-control select-input">
+          <option value="all">Tất cả Vị trí</option>
+          @for (vt of availableViTri; track $index) {
+            <option [value]="vt">{{ vt }}</option>
+          }
+        </select>
       </div>
-     
-      
-
-   
-      
-
     </div>
   </div>
 
@@ -55,6 +35,7 @@
         <thead>
           <tr>
             <th>Họ và Tên</th>
+            <th>Vị trí</th> 
             <th>Ngày đăng ký</th>
             <th>Thứ</th>
             <th>Ca làm</th>
@@ -65,8 +46,13 @@
           @for (item of filteredSchedules; track $index) {
             <tr>
               <td class="font-bold">{{ item.hoten }}</td>
+              <td>
+                <span [ngClass]="item.vitri && item.vitri !== 'Chưa cập nhật' ? 'badge-vitri' : 'text-muted'">
+                  {{ item.vitri || 'Chưa cập nhật' }}
+                </span>
+              </td> 
               <td>{{ item.ngay_dang_ki | date:'dd/MM/yyyy' }}</td>
-              <td>{{ getThuText(item.thu_trong_tuan) }}</td>
+              <td class="font-medium">{{ getThuText(item.thu_trong_tuan) }}</td>
               <td>
                 <span class="shift-tag" [ngClass]="{
                   'tag-morning': item.caHienThi === 'Sáng',
@@ -82,8 +68,8 @@
             </tr>
           } @empty {
             <tr>
-              <td colspan="5" style="text-align: center; padding: 20px; color: #666;">
-                Không tìm thấy lịch thực tập nào phù hợp.
+              <td colspan="6" class="empty-state">
+                Không tìm thấy lịch thực tập nào phù hợp trong tháng này.
               </td>
             </tr>
           }

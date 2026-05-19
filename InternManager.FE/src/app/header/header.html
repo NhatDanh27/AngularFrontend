@@ -1,13 +1,25 @@
 <div class="header"> 
-    <img class="logo" src="user.png" alt="Logo">
-    <button (click)="toggleForm()"   class="arrow"><img class="logo1" src="arrow.png" alt="Logo"></button>
-    @if(showForm)
-    {
-        <div class="form-group">
-            
-            <button routerLink="/tts" routerLinkActive="active" class="profile">Hồ sơ</button>     
-            <button (click)="Logout()"  class="btn-logout">Thoát</button>
-        </div>   
+  <div class="user-menu-container">
+    
+    <div class="user-trigger" (click)="toggleForm()" [class.active]="showForm">
+      <img class="logo" src="user.png" alt="Avatar">
+      <img class="logo1" src="arrow.png" alt="Arrow">
+    </div>
+    
+    @if(showForm) {
+      <div class="form-group">
+        @if(!isAdmin) {
+          <button routerLink="/tts" routerLinkActive="active" class="profile">
+            Hồ sơ
+          </button>     
+        }
+        
+        <div class="divider"></div>
+        
+        <button (click)="Logout()" class="btn-logout">
+          Thoát
+        </button>
+      </div>   
     }
+  </div>
 </div>
-

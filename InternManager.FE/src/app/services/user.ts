@@ -25,4 +25,10 @@ updateUser(userID: number, userData: any) {
   return this.http.put(`${this.apiUrl}/register/${userID}`, userData
     , { withCredentials: true }); 
 }
+
+deleteUser(userID: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/${userID}`, { 
+    withCredentials: true 
+  });
+}
 }

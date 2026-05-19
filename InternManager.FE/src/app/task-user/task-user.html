@@ -1,6 +1,7 @@
 <div class="page-container">
+  
   <div class="header-section">
-    
+    <h2 class="page-title">Nhiệm vụ của tôi</h2>
   </div>
 
   <div class="table-responsive"> 
@@ -18,22 +19,20 @@
         @for (task of myTasks; track task.id) {
           <tr>
             <td class="task-name">{{ task.ten_task }}</td>
-            <td>{{ task.deadline | date:'dd/MM/yyyy' }}</td>
+            <td class="font-medium">{{ task.deadline | date:'dd/MM/yyyy' }}</td>
            
             <td>
               <span class="badge" [ngClass]="getPriorityClass(task.uu_tien)">
-               
                 {{ getPriorityDisplayName(task.uu_tien) }}
               </span>
             </td>
 
-        
             <td>
               <span class="badge" [ngClass]="getStatusClass(task.trangthai)">
-                
                 {{ getStatusDisplayName(task.trangthai) }}
               </span>
             </td>
+            
             <td class="text-center">
               <div class="action-group">             
                 <button class="btn-update" (click)="updateProgress(task)">
@@ -44,7 +43,9 @@
           </tr>
         } @empty {
           <tr>
-            <td colspan="5" class="text-center empty-state">Bạn hiện chưa có nhiệm vụ nào.</td>
+            <td colspan="5" class="empty-state">
+              Bạn hiện chưa có nhiệm vụ nào.
+            </td>
           </tr>
         }
       </tbody>

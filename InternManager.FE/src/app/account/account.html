@@ -1,65 +1,85 @@
 <div class="container">
-@if (showForm) { 
-  <div class="modal-overlay" >   
-    <div class="register-card" >    
-      <div class="modal-header">
-        <h3>Thêm tài khoản mới</h3>
-        <img class="btn-close" src="./close.png" alt="Đóng" (click)="showForm = false">
-      </div>
-      
-      <div class="form-group">
-        <input type="text" [(ngModel)]="newUser.tendangnhap" placeholder="Tên đăng nhập" class="form-control">
-        <input type="password" [(ngModel)]="newUser.matkhau" placeholder="Mật khẩu" class="form-control">
+  
+  @if (showForm) { 
+    <div class="modal-overlay">   
+      <div class="register-card">    
+        <div class="modal-header">
+          <h3>{{ isEditMode ? 'Cập nhật tài khoản' : 'Thêm tài khoản mới' }}</h3>
+          <img class="btn-close" src="./close.png" alt="Đóng" (click)="showForm = false">
+        </div>
         
-        <select [(ngModel)]="newUser.role" class="form-control">
-          <option value="TTS">TTS</option>
-          <option value="Admin">Admin</option>
-        </select>       
-        <button (click)="registerUser()" class="btn-submit">Tạo</button>
+        <div class="form-group">
+          <input type="text" [(ngModel)]="newUser.tendangnhap" placeholder="Tên đăng nhập" class="form-control">
+          <input type="password" [(ngModel)]="newUser.matkhau" [placeholder]="isEditMode ? 'Mật khẩu mới (bỏ trống nếu không đổi)' : 'Mật khẩu'" class="form-control">
+          
+          <select [(ngModel)]="newUser.role" class="form-control">
+            <option value="TTS">Thực tập sinh (TTS)</option>
+            <option value="Admin">Quản trị viên (Admin)</option>
+          </select>       
+                
+          <select [(ngModel)]="newUser.userStatus" class="form-control">
+            <option [ngValue]="0">Trạng thái: Hoạt động</option>
+            <option [ngValue]="1">Trạng thái: Không hoạt động</option>
+          </select>
+          
+          <button (click)="submitForm()" class="btn-submit">
+            {{ isEditMode ? 'Lưu thay đổi' : 'Tạo tài khoản' }}
+          </button>
+        </div>
+        
+        @if (message) {
+          <p class="message-alert" [ngClass]="message.includes('Lỗi') ? 'error' : 'success'">
+            {{ message }}
+          </p>
+        }
       </div>
-      @if (message) {
-        <p [ngStyle]="{'color': message.includes('Lỗi') ? 'red' : 'green', 'margin-top': '10px', 'text-align': 'center'}">
-          {{ message }}
-        </p>
-      }
     </div>
+  }
+  
+  <div class="info-add">
+    <h2 class="page-title">Thông tin tài khoản</h2>
+    <button (click)="toggleForm()" class="btn-action btn-add-user">+ Thêm tài khoản</button>
   </div>
-}
-<div class="info-add">
-      <p style="font-size: 30px; font-weight: 600;">Thông tin tài khoản</p>
-      <button (click)="toggleForm()" class="btn-action btn-add-user">Thêm tài khoản</button>
-</div>
+  
   <div class="table-responsive"> 
-  <table class="user-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Tên đăng nhập</th>
-        <th>Vai trò (Role)</th>
-        <th>Ngày tạo</th>
-        <th class="text-center">Thao tác</th> 
-      </tr>
-    </thead>  
-    <tbody>
-      @for (user of usersList; track user.id) {
+    <table class="user-table">
+      <thead>
         <tr>
-          <td>{{ user.id }}</td>
-          <td>{{ user.tendangnhap }}</td>
-          <td>{{ user.role }}</td>
-          <td>{{ user.ngaytao | date:'dd/MM/yyyy' }}</td>
-          <td>
+          <th>ID</th>
+          <th>Tên đăng nhập</th>
+          <th>Vai trò</th>
+          <th>Ngày tạo</th>
+          <th class="text-center">Thao tác</th> 
+        </tr>
+      </thead>  
+      <tbody>
+        @for (user of usersList; track user.id) {
+          <tr>
+            <td class="font-medium">#{{ user.id }}</td>
+            <td class="font-bold">{{ user.tendangnhap }}</td>
+            <td>
+              <span class="role-badge" [ngClass]="user.role === 'Admin' ? 'badge-admin' : 'badge-tts'">
+                {{ user.role }}
+              </span>
+            </td>
+            <td>{{ user.ngaytao | date:'dd/MM/yyyy' }}</td>
+            <td>
               <div class="action-group">             
-                <img src="./edit.png"  alt="Sửa" class="btn-action btn-edit-user">
-                <img src="./bin.png" alt="Xóa" class="btn-action btn-delete-user">
+                <div class="icon-btn btn-edit-user" (click)="editUser(user)" title="Sửa">
+                  <img src="./edit.png" alt="Sửa">
+                </div>
+                <div class="icon-btn btn-delete-user" (click)="deleteUser(user.id)" title="Xóa">
+                  <img src="./bin.png" alt="Xóa">
+                </div>
               </div>
             </td>
-        </tr>
-      } @empty {
-        <tr>
-          <td colspan="5" class="text-center">Chưa có dữ liệu hoặc đang tải...</td>
-        </tr>
-      }
-    </tbody>
-  </table>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty-state">Chưa có dữ liệu hoặc đang tải...</td>
+          </tr>
+        }
+      </tbody>
+    </table>
   </div>
 </div>
