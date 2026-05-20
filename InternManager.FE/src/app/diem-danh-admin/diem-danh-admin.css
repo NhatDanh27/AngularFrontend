@@ -69,7 +69,8 @@
 .select-input {
   width: 180px; 
   cursor: pointer;
-  appearance: auto;
+  appearance: none; /* Tắt giao diện mặc định nếu muốn tự custom mũi tên */
+  
 }
 
 /* --- BẢNG DỮ LIỆU --- */
@@ -130,25 +131,34 @@
   border: 1px solid #bfdbfe;
 }
 
-/* Thẻ Ca làm */
-.shift-tag {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  text-align: center;
-  min-width: 70px;
-}
 
 .tag-morning { background-color: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
 .tag-afternoon { background-color: #f0f9ff; color: #0369a1; border: 1px solid #e0f2fe; }
 .tag-full { background-color: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
 
+/* Thẻ Ca làm */
+.shift-tag {
+  display: inline-flex;       /* Thay đổi từ inline-block */
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;        /* KHÔNG CHO XUỐNG DÒNG */
+  padding: 6px 12px;          /* Tăng nhẹ padding cho dễ thở */
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  min-width: max-content;     /* Thay vì fix cứng 70px dễ bị tràn chữ */
+}
+
+/* Thẻ Trạng thái */
 .status-badge {
+  display: inline-flex;       /* Đổi sang inline-flex */
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;        /* KHÔNG CHO XUỐNG DÒNG */
   background-color: #dcfce7;
   color: #15803d;
-  padding: 4px 12px;
+  padding: 6px 12px;          /* Cân đối lại padding */
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
@@ -173,15 +183,26 @@
   
   .toolbar {
     flex-direction: column;
-    align-items: stretch; /* Kéo dài full chiều ngang */
+    align-items: stretch; 
+    gap: 12px; /* Thu hẹp khoảng cách giữa thanh search và bộ lọc */
   }
 
-  .search-box { width: 100%; }
+  .search-box { 
+    width: 100%; 
+  }
   
+  /* Giữ 2 ô select nằm cùng một hàng thay vì xếp dọc */
   .sort {
-    flex-direction: column;
+    display: flex;
+    flex-direction: row; /* Thay đổi từ column sang row */
     width: 100%;
+    gap: 12px; /* Khoảng cách giữa 2 ô select */
   }
 
-  .select-input { width: 100%; }
+  /* Mỗi ô select chiếm một nửa chiều ngang */
+  .select-input { 
+    flex: 1; 
+    width: 50%; 
+    min-width: 0; /* Ngăn chặn flex item bị phình to bất thường */
+  }
 }

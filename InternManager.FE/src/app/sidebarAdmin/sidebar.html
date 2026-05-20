@@ -1,18 +1,29 @@
-<div class="side-bar">
-    <div class="brand-header">
-        <h2 class="brand-title">Admin<span>Panel</span></h2>
-    </div>
+<button class="toggle-btn" (click)="toggleSidebar()">☰</button>
 
-    <div class="nav-item" routerLink="/account" routerLinkActive="active">
+<div class="side-bar" [class.open]="isSidebarOpen">
+    
+    <button class="close-btn" (click)="toggleSidebar()">✕</button>
+
+    <div class="brand-header">
+    <div class="brand-logo">
+        <img src="/ANNHOME.png" alt="ANNHOME Logo">
+        
+    </div>
+    
+</div>
+
+    <div class="nav-item" routerLink="/account" routerLinkActive="active" (click)="closeSidebarOnMobile()">
         <p>Tài khoản</p>
     </div>     
-    <div class="nav-item" routerLink="/tts-admin" routerLinkActive="active">
+    <div class="nav-item" routerLink="/tts-admin" routerLinkActive="active" (click)="closeSidebarOnMobile()">
         <p>Hồ sơ</p>
     </div> 
-    <div class="nav-item" routerLink="/diem-danh-admin" routerLinkActive="active">
+    <div class="nav-item" routerLink="/diem-danh-admin" routerLinkActive="active" (click)="closeSidebarOnMobile()">
         <p>Điểm danh</p>
     </div>
-    <div class="nav-item" routerLink="/task-admin" routerLinkActive="active">
+    <div class="nav-item" routerLink="/task-admin" routerLinkActive="active" (click)="closeSidebarOnMobile()">
         <p>Task</p>
     </div>
 </div>
+
+<div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>

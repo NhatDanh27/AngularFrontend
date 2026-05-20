@@ -251,7 +251,7 @@
 /* --- RESPONSIVE MOBILE --- */
 @media screen and (max-width: 900px) {
   .page-container { margin-left: 0; width: 100vw; padding: 16px; }
-  .schedule-card { padding: 16px; margin-top: 20px; }
+  .schedule-card { padding: 16px; margin-top: 50px; }
   .calendar-header h2 { font-size: 18px; }
   
   /* Thu gọn lịch trên mobile */

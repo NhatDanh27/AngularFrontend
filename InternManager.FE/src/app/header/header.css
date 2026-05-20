@@ -125,5 +125,6 @@
     .header {
         width: 100%; /* Tràn viền trên điện thoại (khi sidebar bị ẩn) */
         left: 0;
+        margin-right: -15px;
     }
 }

@@ -31,6 +31,7 @@
     margin: 0;
 }
 
+
 .brand-title span {
     color: #3b82f6; /* Màu xanh nhấn nhá */
 }
@@ -85,12 +86,99 @@
     border-radius: 0 4px 4px 0;
 }
 
-/* --- RESPONSIVE CHO MOBILE --- */
+/* --- BỔ SUNG CSS CHO CÁC NÚT BẤM (MẶC ĐỊNH ẨN TRÊN PC) --- */
+.toggle-btn {
+    display: none; /* Trấu đi trên màn hình máy tính */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1000; /* Nằm trên cùng */
+    background-color: #3b82f6; /* Màu xanh đồng bộ thương hiệu của bạn */
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+    display: none; /* Giấu đi trên máy tính */
+}
+
+/* --- RESPONSIVE CHO MOBILE (SỬA LẠI ĐOẠN @MEDIA CỦA BẠN) --- */
 @media screen and (max-width: 768px) {
     .side-bar {
-        /* Đẩy sidebar sang trái giấu đi khi màn hình nhỏ */
-        transform: translateX(-100%); 
-        /* Nếu sau này bạn làm nút "Mở menu" trên mobile, 
-           chỉ cần thêm class .open cho sidebar là transform: translateX(0); */
+        transform: translateX(-100%); /* Giấu sidebar sang trái */
     }
+
+    /* KHI SIDEBAR CÓ CLASS .open THÌ SẼ HIỆN RA */
+    .side-bar.open {
+        transform: translateX(0); 
+    }
+
+    /* Hiện nút mở menu trên mobile */
+    .toggle-btn {
+        display: block;
+    }
+
+    /* Hiện và định vị nút đóng bên trong sidebar */
+    .close-btn {
+        display: block;
+        position: absolute;
+        top: 24px;
+        right: 16px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #64748b;
+        cursor: pointer;
+    }
+
+    /* Lớp phủ mờ màu đen trong suốt phía sau sidebar */
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 998; /* Ngay bên dưới sidebar */
+    }
+}
+
+
+/* --- KHU VỰC LOGO MỚI --- */
+.brand-header {
+    padding: 10px 10px 30px 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #e2e8f0;
+    text-align: center;           /* Căn giữa logo + chữ */
+}
+
+/* Logo */
+.brand-logo {
+    
+    display: flex;
+}
+
+.brand-logo img {
+    width: 60px;                 /* Điều chỉnh kích thước logo theo ý bạn */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    
+}
+
+
+
+/* Responsive cho mobile */
+@media screen and (max-width: 768px) {
+    .brand-logo img {
+        width: 90px;  
+        margin-top: 50px;             /* Nhỏ lại một chút trên mobile */
+    }
+    
+
 }

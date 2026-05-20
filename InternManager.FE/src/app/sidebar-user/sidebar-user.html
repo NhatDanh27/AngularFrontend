@@ -1,13 +1,23 @@
-<div class="side-bar">
-    <div class="brand-header">
-        <h2 class="brand-title">Intern<span>Portal</span></h2>
-    </div>
+<button class="toggle-btn" (click)="toggleSidebar()">☰</button>
 
-    <div class="nav-item" routerLink="/diem-danh-user" routerLinkActive="active">
-        <p>Điểm danh</p>
+<div class="side-bar" [class.open]="isSidebarOpen">
+    
+    <button class="close-btn" (click)="toggleSidebar()">✕</button>
+
+    <div class="brand-header">
+    <div class="brand-logo">
+        <img src="/ANNHOME.png" alt="ANNHOME Logo">
+        
     </div>
     
-    <div class="nav-item" routerLink="/task-user" routerLinkActive="active">
-        <p>Nhận task</p>
+</div>
+
+    <div class="nav-item" routerLink="/diem-danh-admin" routerLinkActive="active" (click)="closeSidebarOnMobile()">
+        <p>Điểm danh</p>
+    </div>
+    <div class="nav-item" routerLink="/task-admin" routerLinkActive="active" (click)="closeSidebarOnMobile()">
+        <p>Nhận Task</p>
     </div>
 </div>
+
+<div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
